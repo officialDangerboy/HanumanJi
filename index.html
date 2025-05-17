@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hanuman Chalisa</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Mukta&family=Tangerine&family=Lora&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      background: radial-gradient(circle at top left, #fff3e6, #f7b733, #f1a000);
+      color: #5a3e1b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Mandala_colored.svg/1024px-Mandala_colored.svg.png') no-repeat center/contain;
+      opacity: 0.07;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      background: #fff8e1;
+      border: 2px solid #f1a000;
+      border-radius: 25px;
+      box-shadow: 0 0 50px 8px rgba(241, 160, 0, 0.7);
+      max-width: 700px;
+      width: 100%;
+      padding: 30px 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      animation: fadeIn 2s ease;
+      z-index: 1;
+    }
+
+    .image-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .image-container {
+      width: 320px;
+      height: 320px;
+      max-width: 90vw;
+      max-height: 90vw;
+      border-radius: 50%;
+      border: 8px double #f1a000;
+      overflow: hidden;
+      box-shadow: 0 0 50px 10px rgba(241, 160, 0, 0.9);
+      position: relative;
+      filter: drop-shadow(0 0 12px #f7b733);
+    }
+
+    .image-container::after {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      border-radius: 50%;
+      box-shadow: 0 0 80px 20px rgba(241, 160, 0, 0.5);
+      pointer-events: none;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.8s ease-in-out;
+      display: block;
+    }
+
+    .chalisa-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .chalisa {
+      font-family: 'Lora', serif;
+      font-size: 1.2em;
+      line-height: 1.9;
+      white-space: pre-line;
+      text-align: justify;
+      padding: 0 20px;
+      width: 100%;
+      color: #b55a00;
+      text-shadow: 0 0 8px rgba(241, 160, 0, 0.7);
+      letter-spacing: 0.07em;
+      max-height: 400px;
+      overflow: auto; 
+    }
+
+    @media (max-width: 500px) {
+      .image-container {
+        width: 220px;
+        height: 220px;
+      }
+      .chalisa {
+        font-size: 1em;
+        padding: 0 12px;
+        max-height: 300px;
+      }
+    }
+
+    .petal {
+      position: fixed;
+      top: -50px;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #f7b733, #f1a000);
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite, sway 3s ease-in-out infinite;
+      z-index: 2;
+      filter: drop-shadow(0 0 3px #f1a000);
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(15px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .glow-ball {
+      position: fixed;
+      top: -20px;
+      left: 0;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff8e1, #f7b733, #f1a000);
+      box-shadow: 0 0 20px #f1a000;
+      animation: fall-glow linear infinite;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    @keyframes fall-glow {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) translateX(10vw);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="image-wrapper">
+      <div class="image-container">
+        <img id="hanumanImage" src="/hhh.jpg" alt="Hanuman Image" />
+      </div>
+    </div>
+    <div class="chalisa-container">
+      <div id="chalisa" class="chalisa"></div>
+    </div>
+  </div>
+
+  <script>
+    const imagePaths = ['/hhh.jpg', '/h1.jpg', '/h2.jpg'];
+    let currentIndex = 0;
+    const imageElement = document.getElementById('hanumanImage');
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % imagePaths.length;
+      imageElement.style.opacity = 0;
+      setTimeout(() => {
+        imageElement.src = imagePaths[currentIndex];
+        imageElement.style.opacity = 1;
+      }, 800);
+    }, 4000);
+
+    
+  const chalisaText = `॥ श्री हनुमान चालीसा ॥
+
+॥ दोहा ॥
+श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।
+बरनउँ रघुबर बिमल जसु, जो दायकु फल चारि॥
+
+बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।
+बल बुद्धि विद्या देहु मोहिं, हरहु कलेस विकार॥
+
+॥ चौपाई ॥
+जय हनुमान ज्ञान गुण सागर।
+जय कपीस तिहुँ लोक उजागर॥
+
+रामदूत अतुलित बल धामा।
+अंजनि-पुत्र पवनसुत नामा॥
+
+महाबीर बिक्रम बजरंगी।
+कुमति निवार सुमति के संगी॥
+
+कंचन बरन बिराज सुबेसा।
+कानन कुण्डल कुँचित केसा॥
+
+हाथ बज्र औ ध्वजा विराजे।
+काँधे मूँज जनेऊ साजे॥
+
+शंकर सुवन केसरी नंदन।
+तेज प्रताप महा जग वंदन॥
+
+विद्यावान गुनी अति चातुर।
+राम काज करिबे को आतुर॥
+
+प्रभु चरित्र सुनिबे को रसिया।
+राम लखन सीता मन बसिया॥
+
+सूक्ष्म रूप धरि सियहिं दिखावा।
+बिकट रूप धरि लंक जरावा॥
+
+भीम रूप धरि असुर संहारे।
+रामचन्द्र के काज संवारे॥
+
+लाय सजीवन लखन जियाये।
+श्रीरघुबीर हरषि उर लाये॥
+
+रघुपति कीन्ही बहुत बड़ाई।
+तुम मम प्रिय भरतहि सम भाई॥
+
+सहस बदन तुम्हरो जस गावैं।
+अस कहि श्रीपति कण्ठ लगावैं॥
+
+सनकादिक ब्रह्मादि मुनीसा।
+नारद सारद सहित अहीसा॥
+
+जम कुबेर दिगपाल जहाँ ते।
+कवि कोविद कहि सके कहाँ ते॥
+
+तुम उपकार सुग्रीवहिं कीन्हा।
+राम मिलाय राज पद दीन्हा॥
+
+तुम्हरो मंत्र विभीषण माना।
+लंकेश्वर भए सब जग जाना॥
+
+जुग सहस्त्र जोजन पर भानू।
+लील्यो ताहि मधुर फल जानू॥
+
+प्रभु मुद्रिका मेलि मुख माहीं।
+जलधि लांघि गये अचरज नाहीं॥
+
+दुर्गम काज जगत के जेते।
+सुगम अनुग्रह तुम्हरे तेते॥
+
+राम दुआरे तुम रखवारे।
+होत न आज्ञा बिनु पैसारे॥
+
+सब सुख लहै तुम्हारी सरना।
+तुम रक्षक काहू को डर ना॥
+
+आपन तेज सम्हारो आपै।
+तीनों लोक हाँक तें काँपै॥
+
+भूत पिशाच निकट नहिं आवै।
+महावीर जब नाम सुनावै॥
+
+नासै रोग हरै सब पीरा।
+जपत निरंतर हनुमत बीरा॥
+
+संकट तें हनुमान छुड़ावै।
+मन क्रम बचन ध्यान जो लावै॥
+
+सब पर राम तपस्वी राजा।
+तिनके काज सकल तुम साजा॥
+
+और मनोरथ जो कोई लावै।
+सोइ अमित जीवन फल पावै॥
+
+चारों जुग परताप तुम्हारा।
+है परसिद्ध जगत उजियारा॥
+
+साधु संत के तुम रखवारे।
+असुर निकंदन राम दुलारे॥
+
+अष्ट सिद्धि नौ निधि के दाता।
+अस बर दीन जानकी माता॥
+
+राम रसायन तुम्हरे पासा।
+सदा रहो रघुपति के दासा॥
+
+तुम्हरे भजन राम को पावै।
+जनम जनम के दुख बिसरावै॥
+
+अंतकाल रघुबर पुर जाई।
+जहाँ जन्म हरि भक्त कहाई॥
+
+और देवता चित्त न धरई।
+हनुमत सेइ सर्ब सुख करई॥
+
+संकट कटै मिटै सब पीरा।
+जो सुमिरै हनुमत बलबीरा॥
+
+जय जय जय हनुमान गोसाईं।
+कृपा करहु गुरुदेव की नाईं॥
+
+जो शत बार पाठ कर कोई।
+छूटहि बंदि महासुख होई॥
+
+जो यह पढ़ै हनुमान चालीसा।
+होय सिद्धि साखी गौरीसा॥
+
+तुलसीदास सदा हरि चेरा।
+कीजै नाथ हृदय मह डेरा॥
+
+॥ दोहा ॥
+पवन तनय संकट हरन, मंगल मूरति रूप।
+राम लखन सीता सहित, हृदय बसहु सुर भूप॥
+`;
+
+
+    const chalisaContainer = document.getElementById('chalisa');
+    let i = 0;
+
+    function typeWriter() {
+      if (i < chalisaText.length) {
+        chalisaContainer.textContent += chalisaText.charAt(i);
+        chalisaContainer.scrollTop = chalisaContainer.scrollHeight; // 👈 Auto-scroll
+        i++;
+        setTimeout(typeWriter, 25);
+      }
+    }
+
+    function generatePetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      const size = Math.random() * 10 + 10;
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), parseFloat(petal.style.animationDuration) * 1000);
+    }
+
+    function startPetalFall() {
+      setInterval(generatePetal, 400);
+    }
+
+    function createGlowBall() {
+      const ball = document.createElement('div');
+      ball.className = 'glow-ball';
+      ball.style.left = `${Math.random() * 100}vw`;
+      ball.style.animationDuration = `${Math.random() * 6 + 6}s`;
+      ball.style.width = `${Math.random() * 10 + 10}px`;
+      ball.style.height = ball.style.width;
+      document.body.appendChild(ball);
+      setTimeout(() => ball.remove(), parseFloat(ball.style.animationDuration) * 1000);
+    }
+
+    function startGlowRain() {
+      setInterval(createGlowBall, 500);
+    }
+
+    window.onload = () => {
+      typeWriter();
+      startPetalFall();
+      startGlowRain();
+    };
+  </script>
+</body>
+</html>
